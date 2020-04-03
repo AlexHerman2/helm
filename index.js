@@ -249,7 +249,7 @@ async function run() {
         ignoreReturnCode: true
       });
     } else if (task === "rollback") {
-      await exec.exec(helm, ["rollback", release, 0]);
+      await exec.exec(helm, ["rollback", release, 0], opts);
     } else {
       await exec.exec(helm, args, opts);
     }
