@@ -156,8 +156,8 @@ async function run() {
     const track = getInput("track") || "stable";
     const appName = getInput("release", required);
     const release = releaseName(appName, track);
-    const namespace = getInput("namespace", required);
-    const chart = chartName(getInput("chart", required));
+    const namespace = getInput("namespace");
+    const chart = chartName(getInput("chart"));
     const chartVersion = getInput("chart_version");
     const values = getValues(getInput("values"));
     const task = getInput("task");
@@ -248,6 +248,8 @@ async function run() {
         ...opts,
         ignoreReturnCode: true
       });
+    } else if (task === "rollback") {
+      await exec.exec(helm, ["rollback", release]);
     } else {
       await exec.exec(helm, args, opts);
     }
